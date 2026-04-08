@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shailendra & Nikita's Wedding Countdown</title>
+    <!-- Premium Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fdfaf5;
+            --beige: #f5f0e6;
+            --gold: #d4af37;
+            --gold-light: #f1e5ac;
+            --maroon: #800000;
+            --text-dark: #333;
+            --soft-pink: #fce4ec;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Animated Background Petals */
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .petal {
+            position: absolute;
+            background-color: var(--soft-pink);
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            filter: blur(1px);
+            animation: fall linear infinite;
+        }
+
+        .petal.gold {
+            background-color: var(--gold-light);
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.5; }
+            100% {
+                transform: translateY(110vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Layout */
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: var(--maroon);
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.5rem; }
+        }
+
+        .hero p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+
+        /* Countdown Area */
+        .countdown-container {
+            background: white;
+            border: 2px solid var(--gold);
+            padding: 40px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.15);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .countdown-container::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid var(--gold-light);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .timer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--maroon);
+            line-height: 1;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(128, 0, 0, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            .number { font-size: 2.2rem; }
+            .timer { gap: 10px; }
+        }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Message */
+        .message {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+        }
+
+        /* Buttons */
+        .actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: white;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-gold:hover {
+            background: #b8962d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding: 30px;
+            font-size: 0.8rem;
+            color: #999;
+            text-align: center;
+        }
+
+        /* Wedding Banner Section (Optional use of local image) */
+        .banner-placeholder {
+            width: 100%;
+            height: 200px;
+            background-image: url('images/wedding_banner.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: none; /* Only show if image exists */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="petals-container" id="petals"></div>
+
+    <div class="container">
+        <!-- Optional Image Banner -->
+        <div id="banner" class="banner-placeholder"></div>
+
+        <section class="hero">
+            <h1>Shailendra & Nikita</h1>
+            <p>are getting married</p>
+            <div style="font-family: 'Playfair Display', serif; color: var(--maroon); margin-top: 15px; font-weight: 600;">
+                TUESDAY, 21st APRIL 2026
+            </div>
+        </section>
+
+        <section class="countdown-container">
+            <div class="timer">
+                <div class="time-box">
+                    <span class="number" id="days">00</span>
+                    <span class="label">Days</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="hours">00</span>
+                    <span class="label">Hours</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="minutes">00</span>
+                    <span class="label">Minutes</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="seconds">00</span>
+                    <span class="label">Seconds</span>
+                </div>
+            </div>
+        </section>
+
+        <p class="message">"We can't wait to celebrate with you 💕"</p>
+
+        <div class="actions">
+            <button onclick="addToCalendar()" class="btn btn-gold">
+                <span>📅</span> Add to Calendar
+            </button>
+            <button onclick="shareInvitation()" class="btn btn-outline">
+                <span>🔗</span> Share Invitation
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Shailu & Nikita Wedding
+    </footer>
+
+    <script>
+        // Set the wedding date
+        // Change this date as needed: YYYY, MM (0-indexed), DD, HH, MM
+        const weddingDate = new Date(2026, 3, 21, 10, 0, 0).getTime(); // April is index 3
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.querySelector('.countdown-container').innerHTML = "<h2 style='font-family: Playfair Display; color: var(--gold)'>Today is the Big Day! 💍</h2>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }
+
+        // Start countdown
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Create Falling Petals
+        function createPetals() {
+            const container = document.getElementById('petals');
+            const petalCount = 40;
+
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                const isGold = Math.random() > 0.8;
+                petal.className = isGold ? 'petal gold' : 'petal';
+                
+                // Random properties
+                const size = Math.random() * 10 + 5 + 'px';
+                petal.style.width = size;
+                petal.style.height = isGold ? size : (parseInt(size) * 1.5) + 'px';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+                petal.style.animationDelay = Math.random() * 10 + 's';
+                
+                container.appendChild(petal);
+            }
+        }
+        createPetals();
+
+        // Add to Calendar
+        function addToCalendar() {
+            const event = {
+                title: "Shailendra & Nikita's Wedding",
+                start: "20260421T100000",
+                end: "20260421T230000",
+                location: "To be announced",
+                details: "Join us for our special day!"
+            };
+            
+            const googleUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.start}/${event.end}&details=${encodeURIComponent(event.details)}&location=${encodeURIComponent(event.location)}`;
+            
+            window.open(googleUrl, '_blank');
+        }
+
+        // Share Invitation
+        function shareInvitation() {
+            if (navigator.share) {
+                navigator.share({
+                    title: "Shailendra & Nikita's Wedding",
+                    text: "You are cordially invited to our wedding on 21st April 2026! Check out the countdown:",
+                    url: window.location.href
+                }).catch(err => console.log('Error sharing:', err));
+            } else {
+                // Fallback: Copy to clipboard
+                const dummy = document.createElement('input');
+                document.body.appendChild(dummy);
+                dummy.value = window.location.href;
+                dummy.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+                alert('Wedding link copied to clipboard!');
+            }
+        }
+
+        // Check if banner image exists
+        const img = new Image();
+        img.src = 'images/wedding_banner.png';
+        img.onload = function() {
+            document.getElementById('banner').style.display = 'block';
+        };
+    </script>
+</body>
+</html>
